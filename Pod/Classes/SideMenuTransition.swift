@@ -193,6 +193,14 @@ open class SideMenuTransition: UIPercentDrivenInteractiveTransition {
         let translation = pan.translation(in: pan.view!)
         let direction:CGFloat = SideMenuTransition.presentDirection == .left ? -1 : 1
         let distance = translation.x / menuWidth * direction
+        let gestureVelocity = pan.velocity(in: pan.view!).x
+        
+        if gestureVelocity > 0 && SideMenuTransition.presentDirection == .left {
+            return
+        }
+        if gestureVelocity < 0 && SideMenuTransition.presentDirection == .right {
+            return
+        }
         
         switch (pan.state) {
             
